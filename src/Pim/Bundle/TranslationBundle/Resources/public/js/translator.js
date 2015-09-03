@@ -1,14 +1,24 @@
 /* jshint devel:true */
 /* global define */
-define(['underscore', 'translator', 'json'],
-function (_, Translator) {
+define(['module', 'jquery', 'underscore', 'translator', 'json'],
+function (module, $, _, Translator) {
     'use strict';
 
+    var messagesUrl = module.config().messagesUrl;
     var dict = {};
     var debug = false;
     var add = Translator.add;
     var get = Translator.get;
     var fromJSON = Translator.fromJSON;
+
+    if (_.isEmpty(dict)) {
+        $.ajax(messagesUrl, {
+            async: false,
+            complete: function(data) {
+                Translator.fromJSON(data.responseText);
+            }
+        });
+    }
 
     Translator.placeHolderPrefix = '{{ ';
     Translator.placeHolderSuffix = ' }}';
