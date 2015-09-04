@@ -1,10 +1,10 @@
 /* jshint devel:true */
 /* global define */
-define(['module', 'jquery', 'underscore', 'translator', 'json'],
-function (module, $, _, Translator) {
+define(['module', 'underscore', 'translator', 'json'],
+function (module, _, Translator) {
     'use strict';
 
-    var messagesUrl = module.config().messagesUrl;
+    var messages = module.config().messages;
     var dict = {};
     var debug = false;
     var add = Translator.add;
@@ -12,12 +12,7 @@ function (module, $, _, Translator) {
     var fromJSON = Translator.fromJSON;
 
     if (_.isEmpty(dict)) {
-        $.ajax(messagesUrl, {
-            async: false,
-            complete: function(data) {
-                Translator.fromJSON(data.responseText);
-            }
-        });
+        Translator.fromJSON(JSON.parse(messages));
     }
 
     Translator.placeHolderPrefix = '{{ ';
