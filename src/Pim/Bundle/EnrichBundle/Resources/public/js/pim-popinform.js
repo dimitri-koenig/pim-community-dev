@@ -16,7 +16,7 @@ define(
                 header: '',
                 height: 175,
                 minWidth: 225,
-                classes: 'pimmultiselect',
+                classes: 'pimmultiselect pimmultiselect_' + elementId,
                 position: {
                     my: 'right top',
                     at: 'right bottom',
@@ -33,7 +33,7 @@ define(
                 placeholder: opts.placeholder
             });
 
-            var $menu = $el.find('.ui-multiselect-menu.pimmultiselect').appendTo($('#container'));
+            var $menu = $('.ui-multiselect-menu.pimmultiselect_' + elementId).appendTo($('#container'));
             var saveButton = $el.attr('data-save-button');
             var target = $el.attr('data-target');
 
